@@ -5,19 +5,32 @@
 	</div>
 
 	<h3>Add an expense</h3>
-	<form name="expensesform">
+	<form name="expensesform" novalidate>
 		<ul>
 			<li>
 				<label>Date</label>
-				<input type="text" ng-required="true" ng-model="newExpense.date" ui-date="dateOptions" placeholder="dd/mm/yyyy" />
+				<input type="text" name="date" ng-required="true" ng-model="newExpense.date" ui-date="dateOptions" placeholder="dd/mm/yyyy" date-validation maxlength="10" />
+				<span class="error" ng-show="(expensesform.$submitted || expensesform.date.$touched) && expensesform.date.$invalid">
+					<span ng-show="expensesform.date.$error.required">Date is required</span>
+					<span ng-show="!expensesform.date.$error.required && expensesform.date.$error.validDate">Invalid Date</span>
+				</span>
 			</li>
 			<li>
 				<label>Amount</label>
-				<input type="text" ng-required="true" ng-model="newExpense.amount" placeholder="00.00" />
+				<input type="text" name="amount" ng-required="true" ng-model="newExpense.amount" placeholder="00.00 or 00.00 EUR" pattern="\d{0,19}\.?\d{0,2}(\s+[eE][uU][rR])?" />
+				<span class="error" ng-show="(expensesform.$submitted || expensesform.amount.$touched) && expensesform.amount.$invalid">
+					<span ng-show="expensesform.amount.$error.required">Amount is required</span>
+					<span ng-show="!expensesform.amount.$error.required">Invalid amount</span>
+				</span>
+			</li>
+			<li>
+				<label>Vat</label>
+				{{calculateVat()}}
 			</li>
 			<li>
 				<label>Reason</label>
-					<textarea at-auto-resize ng-required="true" ng-model="newExpense.reason" ng-trim="false" placeholder="why oh why?"></textarea>
+				<textarea name="reason" at-auto-resize ng-required="true" ng-model="newExpense.reason" ng-trim="false" placeholder="why oh why?" maxlength="256"></textarea>
+				<span class="error" ng-show="(expensesform.$submitted || expensesform.reason.$touched) && expensesform.reason.$invalid">Reason is required</span>
 			</li>
 			<li>
 				<label></label>
