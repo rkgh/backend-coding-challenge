@@ -2,9 +2,9 @@ README
 ====
 How to run the solution?
 
-* Install at least Java 8
+* Install Java 8
 * Install Maven 3
-* Install PostgreSQL 9.4
+* Install PostgreSQL 9
 * Create main "expenses" and test "expenses-test" databases
 * Change if necessary database username and password properties
     
@@ -22,21 +22,24 @@ How to run the solution?
 	"server.port" property in {path_to_project}/solution/src/main/resources/application.properties
 	"apiroot" property in {path_to_project}/config.js
 	
-* Run Backend solution:
+* Run Backend REST API:
 
 	cd {path_to_project}/solution
 	mvn spring-boot:run
+	
 	or
+	
 	mvn clean install
 	java -jar target/backend-rest-api-1.0-SNAPSHOT.jar
 	
 * Run Frontend:
 
-	cd ../
+	cd {path_to_project}
+	npm install -g gulp && npm install
 	gulp
 	
 * Open Frontend
-	http://localhot:8080
+	http://localhost:8080
 
 IMPORTANT
 ====
